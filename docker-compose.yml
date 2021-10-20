@@ -1,0 +1,31 @@
+# home-assistant locally via docker compose
+
+version: "2.4"
+
+services:
+
+  home-assistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    privileged: true
+    environment:
+      - "TZ=PDT"
+    volumes:
+      - ./config:/config
+    network_mode: host
+    logging:
+      driver: ${LOGGING_HOME_ASSISTANT:-json-file}
+    expose:
+      - "${PORT_HOME_ASSISTANT:-8123}"
+
+  websocket-relay:
+    build:
+      context: websocket-relay
+    network_mode: host
+    environment:
+      - "PORT_HOME_ASSISTANT=${PORT_HOME_ASSISTANT:-8123}"
+    volumes:
+      - ./websocket-relay/index.js:/repo/index.js
+      - ./websocket-relay/justfile:/repo/justfile
+    logging:
+      driver: ${LOGGING_WEBSOCKET_RELAY:-json-file}
