@@ -1,6 +1,5 @@
 # home-assistant locally via docker compose
 
-version: "2.4"
 
 services:
 
@@ -12,6 +11,7 @@ services:
       - "TZ=PDT"
     volumes:
       - ./config:/config
+      - /run/dbus:/run/dbus:ro
     network_mode: host
     logging:
       driver: ${LOGGING_HOME_ASSISTANT:-json-file}

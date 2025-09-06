@@ -22,16 +22,12 @@ ws_ha.addEventListener('open', () => {
     // Authenticate here, keep it local, we'll expose the raw API to an obfuscated URL
     const authResponse = {  "type": "auth",  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIzNmE1YmY2NWI2Yjk0YjQyOWJiNWNkODc1NWI1MjA4NCIsImlhdCI6MTYzMjUyNDYwMCwiZXhwIjoxOTQ3ODg0NjAwfQ.20jjMQG9kfHcffU4Qr-413EeYb1ZGcwrnouZrDm3-qg"};
     ws_ha.send(JSON.stringify(authResponse));
-
-
 });
 ws_relay.addEventListener('open', () => {
     console.log(`🟢 OPEN ${WSS_RELAY}`)
 });
 
 ws_ha.addEventListener('message', ({data}) => {
-
-
     const message = JSON.parse(data);
     switch(message.type) {
         case "auth_required":
@@ -45,7 +41,6 @@ ws_ha.addEventListener('message', ({data}) => {
             ws_relay.send(data);
             break;
     }
-
 });
 ws_relay.addEventListener('message', ({data}) => {
     console.log(`👉 message ${WSS_RELAY} ${data}`)
