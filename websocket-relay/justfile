@@ -1,6 +1,6 @@
 set shell                  := ["bash", "-c"]
 export PORT_HOME_ASSISTANT := env_var_or_default("PORT_HOME_ASSISTANT", "8123")
-export WSS_RELAY           := "wss://websocket-router.glitch.me/home-assistant-835435"
+export WSS_RELAY           := "wss://router.metapage.io/home-assistant-835435"
 # minimal formatting, bold is very useful
 bold                       := '\033[1m'
 normal                     := '\033[0m'
