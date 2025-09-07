@@ -18,7 +18,7 @@ _help:
 
 # Start the home-assistant server, mounting in local config
 run:
-    docker compose build && docker-compose up -d
+    docker compose build && docker compose up -d
 
 # Open home-assistant in browser
 console:
