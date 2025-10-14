@@ -26,7 +26,7 @@ run:
 
 # Stop and remove the home-assistant stack
 down:
-    docker-compose down
+    docker compose down
 
 # Open home-assistant in browser
 console:
