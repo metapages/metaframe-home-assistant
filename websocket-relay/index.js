@@ -20,7 +20,7 @@ let requestId = 1;
 ws_ha.addEventListener('open', () => {
     console.log(`🟢 OPEN ${WSS_HA}`)
     // Authenticate here, keep it local, we'll expose the raw API to an obfuscated URL
-    const authResponse = {  "type": "auth",  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIzNmE1YmY2NWI2Yjk0YjQyOWJiNWNkODc1NWI1MjA4NCIsImlhdCI6MTYzMjUyNDYwMCwiZXhwIjoxOTQ3ODg0NjAwfQ.20jjMQG9kfHcffU4Qr-413EeYb1ZGcwrnouZrDm3-qg"};
+    const authResponse = {  "type": "auth",  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlYzBkYTlmMmVjYjQ0ZWNkOTU5ZjIzM2FiMDhhYmYxMiIsImlhdCI6MTc2MDQxNjQzOCwiZXhwIjoyMDc1Nzc2NDM4fQ.2H5MZjzEA-L8okoff6Mgygq9GLmNMIZRZX91PIncKC8"};
     ws_ha.send(JSON.stringify(authResponse));
 });
 ws_relay.addEventListener('open', () => {
