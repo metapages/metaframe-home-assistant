@@ -20,6 +20,10 @@ _help:
 run:
     docker compose build && docker compose up -d
 
+# Stop and remove the home-assistant stack
+down:
+    docker-compose down
+
 # Open home-assistant in browser
 console:
     open http://localhost:{{PORT_HOME_ASSISTANT}}

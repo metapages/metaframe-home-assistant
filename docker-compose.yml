@@ -7,6 +7,7 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
     privileged: true
+    restart: unless-stopped
     environment:
       - "TZ=PDT"
     volumes:
@@ -21,6 +22,7 @@ services:
   websocket-relay:
     build:
       context: websocket-relay
+    restart: unless-stopped
     network_mode: host
     environment:
       - "PORT_HOME_ASSISTANT=${PORT_HOME_ASSISTANT:-8123}"
