@@ -20,33 +20,34 @@ let requestId = 1;
 ws_ha.addEventListener('open', () => {
     console.log(`🟢 OPEN ${WSS_HA}`)
     // Authenticate here, keep it local, we'll expose the raw API to an obfuscated URL
-    const authResponse = {  "type": "auth",  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlYzBkYTlmMmVjYjQ0ZWNkOTU5ZjIzM2FiMDhhYmYxMiIsImlhdCI6MTc2MDQxNjQzOCwiZXhwIjoyMDc1Nzc2NDM4fQ.2H5MZjzEA-L8okoff6Mgygq9GLmNMIZRZX91PIncKC8"};
+    const authResponse = { "type": "auth", "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlYzBkYTlmMmVjYjQ0ZWNkOTU5ZjIzM2FiMDhhYmYxMiIsImlhdCI6MTc2MDQxNjQzOCwiZXhwIjoyMDc1Nzc2NDM4fQ.2H5MZjzEA-L8okoff6Mgygq9GLmNMIZRZX91PIncKC8" };
     ws_ha.send(JSON.stringify(authResponse));
 });
 ws_relay.addEventListener('open', () => {
     console.log(`🟢 OPEN ${WSS_RELAY}`)
 });
 
-ws_ha.addEventListener('message', ({data}) => {
+ws_ha.addEventListener('message', ({ data }) => {
     const message = JSON.parse(data);
-    switch(message.type) {
+    switch (message.type) {
         case "auth_required":
             console.log(`👉 message ${WSS_HA} ${data}`);
             break; //ignored here
         case "auth_ok":
             console.log(`👉 message ${WSS_HA} ${data}`);
-            // ws_ha.send(JSON.stringify({"id": ++requestId, "type": "get_services"}));
+            ws_ha.send(JSON.stringify({ "id": ++requestId, "type": "get_services" }));
             break;
         default:
             ws_relay.send(data);
             break;
     }
 });
-ws_relay.addEventListener('message', ({data}) => {
+ws_relay.addEventListener('message', ({ data }) => {
     console.log(`👉 message ${WSS_RELAY} ${data}`)
     const message = JSON.parse(data);
     if (message.request) {
-        ws_ha.send(typeof(message.request) === "object" ? JSON.stringify((message.request)) : message.request);
+        message.request.id = ++requestId;
+        ws_ha.send(typeof (message.request) === "object" ? JSON.stringify((message.request)) : message.request);
     }
 });
 
