@@ -17,6 +17,10 @@ _help:
     echo -e ""
 
 # Start the home-assistant server, mounting in local config
+dev:
+    docker compose build && docker compose up
+
+# Start the home-assistant server, mounting in local config
 run:
     docker compose build && docker compose up -d
 
